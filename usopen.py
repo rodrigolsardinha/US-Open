@@ -87,15 +87,10 @@ if st.session_state.matches:
     st.subheader("📝 Palpites & Resultados")
 
     for idx, m in enumerate(st.session_state.matches):
-        col1, col2, col3, col4 = st.columns([3,2,2,2])
-        with col1:
-            st.text_input("Jogo", value=m["match"], key=f"match_{idx}")
-        with col2:
-            st.text_input("Predict Sardas", value=m["pred_sardas"], key=f"sardas_{idx}")
-        with col3:
-            st.text_input("Predict Malhas", value=m["pred_malhas"], key=f"malhas_{idx}")
-        with col4:
-            st.text_input("Resultado", value=m["result"], key=f"result_{idx}")
+        st.text_input("Jogo", value=m["match"], key=f"match_{idx}")
+        st.text_input("Predict Sardas", value=m["pred_sardas"], key=f"sardas_{idx}")
+        st.text_input("Predict Malhas", value=m["pred_malhas"], key=f"malhas_{idx}")
+        st.text_input("Resultado", value=m["result"], key=f"result_{idx}")
 
         # Sincronizar os valores
         m["match"] = st.session_state[f"match_{idx}"]
@@ -103,7 +98,6 @@ if st.session_state.matches:
         m["pred_malhas"] = st.session_state[f"malhas_{idx}"]
         m["result"] = st.session_state[f"result_{idx}"]
 
-    # Guardar automaticamente no CSV
     pd.DataFrame(st.session_state.matches).to_csv('backup_palites.csv', index=False)
 
 st.divider()
