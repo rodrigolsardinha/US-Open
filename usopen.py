@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+import os
+
 
 
 
@@ -8,11 +10,16 @@ st.set_page_config(page_title="US Open Predictions", layout="wide")
 st.title("🎾 US Open Predictions — Sardas vs Malhas")
 
 # --------------------
+df = pd.DataFrame(st.session_state.matches)
 # Estado inicial
 # --------------------
+csv_path = 'backup_palites.csv'
 if 'matches' not in st.session_state:
-    st.session_state.matches = []
-
+    if os.path.exists(csv_path):
+        df = pd.read_csv(csv_path)
+        st.session_state.matches = df.to_dict('records')
+    else:
+        st.session_state.matches = []
 df = pd.DataFrame(st.session_state.matches)
 
 
@@ -61,6 +68,7 @@ with st.form("add_match_form", clear_on_submit=True):
             "pred_malhas": "",
             "result": ""
         })
+        pd.DataFrame(st.session_state.matches).to_csv(csv_path, index=False)
         st.success(f"✅ Adicionado: {p1} vs {p2}")
 
 st.divider()
@@ -99,6 +107,7 @@ if st.session_state.matches:
         st.session_state.matches[i]["pred_sardas"] = row["Predict Sardas"]
         st.session_state.matches[i]["pred_malhas"] = row["Predict Malhas"]
         st.session_state.matches[i]["result"] = row["Resultado Final"]
+    pd.DataFrame(st.session_state.matches).to_csv(csv_path, index=False)
 
 st.divider()
 
