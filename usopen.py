@@ -1,7 +1,13 @@
 import streamlit as st
 import pandas as pd
+import os
+
 if 'matches' not in st.session_state:
-    st.session_state.matches = []
+    if os.path.exists('backup_palites.csv'):
+        df = pd.read_csv('backup_palites.csv')
+        st.session_state.matches = df.to_dict('records')
+    else:
+        st.session_state.matches = []
 df = pd.DataFrame(st.session_state.matches)
 
 import os
