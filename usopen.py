@@ -10,11 +10,12 @@ st.title("🎾 US Open Predictions — Sardas vs Malhas")
 # --------------------
 # Estado inicial
 # --------------------
-if 'matches' not in st.session_state:
-    st.session_state.matches = []
+if 'matches' not in st.session_state or not st.session_state.matches:
+    df = pd.read_csv('backup_palites.csv')
+    st.session_state.matches = df.to_dict('records')
+else:
+    df = pd.DataFrame(st.session_state.matches)
 
-df = pd.DataFrame(st.session_state.matches)
-# --------------------
 # Util
 # --------------------
 def _parse_score(s: str):
