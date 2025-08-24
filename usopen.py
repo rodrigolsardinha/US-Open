@@ -16,8 +16,13 @@ if 'matches' not in st.session_state or not st.session_state.matches:
 else:
     df = pd.DataFrame(st.session_state.matches)
 
-def atualizar_resultado(index, novo_resultado):
-    st.session_state.matches[index]['resultado'] = novo_resultado
+    def guardar_matches_csv():
+        df = pd.DataFrame(st.session_state.matches)
+        df.to_csv('backup_palites.csv', index=False)
+
+    def atualizar_resultado(index, novo_resultado):
+        st.session_state.matches[index]['resultado'] = novo_resultado
+        guardar_matches_csv()
 
 # Util
 # --------------------
