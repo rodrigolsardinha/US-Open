@@ -13,13 +13,8 @@ st.title("🎾 US Open Predictions — Sardas vs Malhas")
 df = pd.DataFrame(st.session_state.matches)
 # Estado inicial
 # --------------------
-csv_path = 'backup_palites.csv'
 if 'matches' not in st.session_state:
-    if os.path.exists(csv_path):
-        df = pd.read_csv(csv_path)
-        st.session_state.matches = df.to_dict('records')
-    else:
-        st.session_state.matches = []
+    st.session_state.matches = []
 df = pd.DataFrame(st.session_state.matches)
 
 
