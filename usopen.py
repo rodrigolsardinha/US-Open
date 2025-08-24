@@ -63,7 +63,7 @@ with st.form("add_match_form", clear_on_submit=True):
             "pred_malhas": "",
             "result": ""
         })
-        pd.DataFrame(st.session_state.matches).to_csv(csv_path, index=False)
+        pd.DataFrame(st.session_state.matches).to_csv('backup_palites.csv', index=False)
         st.success(f"✅ Adicionado: {p1} vs {p2}")
 
 st.divider()
@@ -102,7 +102,7 @@ if st.session_state.matches:
         st.session_state.matches[i]["pred_sardas"] = row["Predict Sardas"]
         st.session_state.matches[i]["pred_malhas"] = row["Predict Malhas"]
         st.session_state.matches[i]["result"] = row["Resultado Final"]
-    pd.DataFrame(st.session_state.matches).to_csv(csv_path, index=False)
+    pd.DataFrame(st.session_state.matches).to_csv('backup_palites.csv', index=False)
 
 st.divider()
 
