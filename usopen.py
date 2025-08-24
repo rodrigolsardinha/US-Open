@@ -13,16 +13,10 @@ st.title("🎾 US Open Predictions — Sardas vs Malhas")
 if 'matches' not in st.session_state:
     df = pd.read_csv('backup_palites.csv')
     st.session_state.matches = df.to_dict('records')
-else:
-    df = pd.DataFrame(st.session_state.matches)
 
-    def guardar_matches_csv():
-        df = pd.DataFrame(st.session_state.matches)
-        df.to_csv('backup_palites.csv', index=False)
+df = pd.DataFrame(st.session_state.matches)
 
-    def atualizar_resultado(index, novo_resultado):
-        st.session_state.matches[index]['resultado'] = novo_resultado
-        guardar_matches_csv()
+
 
 # Util
 # --------------------
