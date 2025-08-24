@@ -83,39 +83,12 @@ st.divider()
 if st.session_state.matches:
     st.subheader("📝 Palpites & Resultados")
 
-    edit_rows = []
-    for m in st.session_state.matches:
-        edit_rows.append({
-            "Jogo": m["match"],
-            "Predict Sardas": m["pred_sardas"],
-            "Predict Malhas": m["pred_malhas"],
-            "Resultado Final": m["result"],
-        })
-    edit_df = pd.DataFrame(edit_rows)
+    for idx, m in enumerate(st.session_state.matches):
+        m["match"] = st.text_input("Jogo", value=m["match"], key=f"match_{idx}")
+        m["pred_sardas"] = st.text_input("Predict Sardas", value=m["pred_sardas"], key=f"sardas_{idx}")
+        m["pred_malhas"] = st.text_input("Predict Malhas", value=m["pred_malhas"], key=f"malhas_{idx}")
+        m["result"] = st.text_input("Resultado", value=m["result"], key=f"result_{idx}")
 
-    edited_df = st.data_editor(
-        edit_df,
-        use_container_width=True,
-        num_rows="dynamic",
-        column_config={
-            "Jogo": st.column_config.TextColumn("Jogo"),
-            "Predict Sardas": st.column_config.TextColumn("Predict Sardas", help="Formato: 3-1, 3–0, etc."),
-            "Predict Malhas": st.column_config.TextColumn("Predict Malhas", help="Formato: 1-3, 2–3, etc."),
-            "Resultado Final": st.column_config.TextColumn("Resultado Final", help="Ex.: 3-0"),
-        },
-    )
-
-    # Sincronizar alterações
-    for i, row in edited_df.iterrows():
-        if i < len(st.session_state.matches):
-            if row["Jogo"] != "":
-                st.session_state.matches[i]["match"] = row["Jogo"]
-            if row["Predict Sardas"] != "":
-                st.session_state.matches[i]["pred_sardas"] = row["Predict Sardas"]
-            if row["Predict Malhas"] != "":
-                st.session_state.matches[i]["pred_malhas"] = row["Predict Malhas"]
-            if row["Resultado Final"] != "":
-                st.session_state.matches[i]["result"] = row["Resultado Final"]
     pd.DataFrame(st.session_state.matches).to_csv('backup_palites.csv', index=False)
 
 st.divider()
