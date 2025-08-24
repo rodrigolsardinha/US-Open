@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 
-df = pd.DataFrame(st.session_state.matches)
-df.to_csv("backup_palites.csv", index=False)
+
+
 
 st.set_page_config(page_title="US Open Predictions", layout="wide")
 st.title("🎾 US Open Predictions — Sardas vs Malhas")
@@ -10,9 +10,10 @@ st.title("🎾 US Open Predictions — Sardas vs Malhas")
 # --------------------
 # Estado inicial
 # --------------------
-if "matches" not in st.session_state:
-    st.session_state.matches = []  # cada item: {match, pred_sardas, pred_malhas, result}
+if 'matches' not in st.session_state:
+    st.session_state.matches = []
 
+df = pd.DataFrame(st.session_state.matches)
 # --------------------
 # Util
 # --------------------
