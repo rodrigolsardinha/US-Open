@@ -16,6 +16,9 @@ if 'matches' not in st.session_state or not st.session_state.matches:
 else:
     df = pd.DataFrame(st.session_state.matches)
 
+def atualizar_resultado(index, novo_resultado):
+    st.session_state.matches[index]['resultado'] = novo_resultado
+
 # Util
 # --------------------
 def _parse_score(s: str):
