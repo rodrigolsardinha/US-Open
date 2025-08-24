@@ -10,7 +10,7 @@ st.title("🎾 US Open Predictions — Sardas vs Malhas")
 # --------------------
 # Estado inicial
 # --------------------
-if 'matches' not in st.session_state or not st.session_state.matches:
+if 'matches' not in st.session_state:
     df = pd.read_csv('backup_palites.csv')
     st.session_state.matches = df.to_dict('records')
 else:
