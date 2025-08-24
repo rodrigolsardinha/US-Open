@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+if 'matches' not in st.session_state:
+    st.session_state.matches = []
+df = pd.DataFrame(st.session_state.matches)
 
 import os
 
