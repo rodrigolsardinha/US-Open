@@ -107,10 +107,15 @@ if st.session_state.matches:
 
     # Sincronizar alterações
     for i, row in edited_df.iterrows():
-        st.session_state.matches[i]["match"] = row["Jogo"]
-        st.session_state.matches[i]["pred_sardas"] = row["Predict Sardas"]
-        st.session_state.matches[i]["pred_malhas"] = row["Predict Malhas"]
-        st.session_state.matches[i]["result"] = row["Resultado Final"]
+        if i < len(st.session_state.matches):
+            if row["Jogo"] != "":
+                st.session_state.matches[i]["match"] = row["Jogo"]
+            if row["Predict Sardas"] != "":
+                st.session_state.matches[i]["pred_sardas"] = row["Predict Sardas"]
+            if row["Predict Malhas"] != "":
+                st.session_state.matches[i]["pred_malhas"] = row["Predict Malhas"]
+            if row["Resultado Final"] != "":
+                st.session_state.matches[i]["result"] = row["Resultado Final"]
     pd.DataFrame(st.session_state.matches).to_csv('backup_palites.csv', index=False)
 
 st.divider()
