@@ -81,6 +81,9 @@ st.divider()
 # 2) Palpites & Resultados (tabela editável)
 # --------------------
 if st.session_state.matches:
+    st.subheader("Lista de jogos e palpites")
+    df_lista = pd.DataFrame(st.session_state.matches)
+    st.table(df_lista)
     st.subheader("📝 Palpites & Resultados")
 
     for idx, m in enumerate(st.session_state.matches):
